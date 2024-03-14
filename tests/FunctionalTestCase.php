@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Camelot\ApiImporter\Tests;
 
+use Camelot\ApiImporter\CamelotApiImporterBundle;
 use Camelot\ApiImporter\JobMonitor;
 use Camelot\ApiImporter\Tests\Fixtures\Command\CommandFixture;
 use Camelot\ApiImporter\Tests\Fixtures\Handler\HandlerFixture;
@@ -44,6 +45,7 @@ abstract class FunctionalTestCase extends KernelTestCase
                 yield new FrameworkBundle();
                 yield new DoctrineBundle();
                 yield new DAMADoctrineTestBundle();
+                yield new CamelotApiImporterBundle();
             }
 
             protected function prepareContainer(ContainerBuilder $container): void

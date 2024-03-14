@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Camelot\ApiImporter\Tests;
 
+use Camelot\ApiImporter\JobMonitor;
 use Camelot\ApiImporter\Tests\Fixtures\Handler\HandlerFixture;
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -29,6 +30,12 @@ abstract class FunctionalTestCase extends KernelTestCase
 
             public function process(ContainerBuilder $container): void
             {
+                $container->getDefinition(JobMonitor\BatchJobMonitor::class)
+                    ->setPublic(true)
+                ;
+                $container->getDefinition(JobMonitor\ImportJobMonitor::class)
+                    ->setPublic(true)
+                ;
             }
 
             public function registerBundles(): iterable
@@ -62,6 +69,13 @@ abstract class FunctionalTestCase extends KernelTestCase
                                 'dir' => '%kernel.project_dir%/tests/Fixtures/Entity',
                                 'prefix' => 'Camelot\ApiImporter\Tests\Fixtures\Entity',
                                 'alias' => 'Fixtures',
+                            ],
+                            'ImportJob' => [
+                                'type' => 'attribute',
+                                'is_bundle' => false,
+                                'dir' => '%kernel.project_dir%/src/Entity',
+                                'prefix' => 'Camelot\ApiImporter\Entity',
+                                'alias' => 'ImportJob',
                             ],
                         ],
                     ],

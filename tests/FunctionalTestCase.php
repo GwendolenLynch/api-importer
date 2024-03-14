@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Camelot\ApiImporter\Tests;
 
 use Camelot\ApiImporter\JobMonitor;
+use Camelot\ApiImporter\Tests\Fixtures\Command\CommandFixture;
 use Camelot\ApiImporter\Tests\Fixtures\Handler\HandlerFixture;
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -86,6 +87,11 @@ abstract class FunctionalTestCase extends KernelTestCase
             {
                 $container->services()->set(HandlerFixture::class)
                     ->tag('camelot.api_import.handler')
+                ;
+
+                $container->services()->set(CommandFixture::class)
+                    ->autowire(true)
+                    ->tag('console.command')
                 ;
             }
         };

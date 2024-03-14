@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Camelot\ApiImporter\Tests;
 
+use Camelot\ApiImporter\Tests\Fixtures\Handler\HandlerFixture;
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -69,6 +70,9 @@ abstract class FunctionalTestCase extends KernelTestCase
 
             private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
             {
+                $container->services()->set(HandlerFixture::class)
+                    ->tag('camelot.api_import.handler')
+                ;
             }
         };
     }
